@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Order , OrderItem
-from ..products.serializers import ProductSerializer
+from products.serializers import ProductSerializer
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
@@ -17,4 +17,4 @@ class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True , read_only=True)
     class Meta :
         model = Order
-        fields = ['id','user','user_name','total','status','address','created_at']
+        fields = ['id','user','user_name','total','status','address','created_at','items']
