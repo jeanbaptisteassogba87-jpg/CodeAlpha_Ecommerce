@@ -2,6 +2,10 @@ asgiref==3.11.1
 Django==6.0.6
 django-cors-headers==4.9.0
 djangorestframework==3.17.1
+djangorestframework_simplejwt==5.5.1
+parts==2.1.0
 pillow==12.3.0
+products==2.0.1
+PyJWT==2.13.0
 setuptools==82.0.1
 sqlparse==0.5.5
