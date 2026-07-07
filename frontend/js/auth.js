@@ -1,6 +1,38 @@
 import { API_URL } from "./config.js";
 
 
+async function register(username, email, password) {
+    try {
+        const response = await fetch(`${API_URL}users/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: username, email, password }),
+        });
+
+        if (response.ok) {
+            return "Compte créé avec succès";
+        }
+
+        const data = await response.json().catch(() => ({}));
+
+        if (data.name) {
+            return "Ce nom d'utilisateur est déjà utilisé";
+        }
+        if (data.email) {
+            return "Cette adresse email est déjà utilisée";
+        }
+        if (data.password) {
+            return "Le mot de passe est invalide";
+        }
+
+        return "Impossible de créer le compte";
+    } catch (erreur) {
+        return "Erreur de connexion au serveur";
+    }
+}
+
 async function login(username,password){
     try {
         const response = await fetch(`${API_URL}token/`,{
@@ -39,4 +71,4 @@ function getToken(){
     return token ;
 }
 
-export {login , logout , isAuthenticated , getToken}
+export {register, login , logout , isAuthenticated , getToken}
