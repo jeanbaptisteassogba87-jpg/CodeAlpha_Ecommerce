@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Shop - Détail produit</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <span class="material-symbols-outlined">storefront</span> Mon Shop
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <span class="material-symbols-outlined">home</span> Accueil
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.html">
+                            <span class="material-symbols-outlined">shopping_cart</span> Panier
+                            <span id="cart-count" class="badge bg-danger">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="auth-links">
+                        <a class="nav-link" href="login.html">
+                            <span class="material-symbols-outlined">login</span> Connexion
+                        </a>
+                    </li>
+                    <li class="nav-item" id="register-link">
+                        <a class="nav-link" href="register.html">
+                            <span class="material-symbols-outlined">app_registration</span> Inscription
+                        </a>
+                    </li>
+                    <li class="nav-item" id="logout-link" style="display: none;">
+                        <a class="nav-link" href="#" id="logoutBtn">
+                            <span class="material-symbols-outlined">logout</span> Déconnexion
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-4">
+        <a href="index.html" class="btn btn-outline-primary mb-4">
+            <span class="material-symbols-outlined">arrow_back</span> Retour aux produits
+        </a>
+
+        <div id="product-detail" class="row g-4 align-items-start">
+            <div class="col-12 text-center py-5">Chargement du produit...</div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p class="mb-0">&copy; 2026 Mon Shop - Tous droits réservés</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script type="module">
+        import { isAuthenticated, logout } from './js/auth.js';
+        import { loadProductDetail } from './js/product-detail.js';
+        import { addToCart, getCart } from './js/cart.js';
+
+        function formatPrice(price) {
+            return `${Number(price || 0).toLocaleString('fr-FR')} FCFA`;
+        }
+
+        function updateAuthUI() {
+            const authLinks = document.getElementById('auth-links');
+            const registerLink = document.getElementById('register-link');
+            const logoutLink = document.getElementById('logout-link');
+
+            if (isAuthenticated()) {
+                authLinks.style.display = 'none';
+                registerLink.style.display = 'none';
+                logoutLink.style.display = 'block';
+            } else {
+                authLinks.style.display = 'block';
+                registerLink.style.display = 'block';
+                logoutLink.style.display = 'none';
+            }
+        }
+
+        function updateCartCount() {
+            const total = getCart().reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').textContent = total;
+        }
+
+        async function displayProductDetail() {
+            const container = document.getElementById('product-detail');
+            const productId = Number(new URLSearchParams(window.location.search).get('id'));
+
+            if (!productId) {
+                container.innerHTML = `
+                    <div class="col-12">
+                        <div class="alert alert-warning">Produit introuvable. Aucun identifiant produit n'a été fourni.</div>
+                    </div>
+                `;
+                return;
+            }
+
+            const product = await loadProductDetail(productId);
+
+            if (!product) {
+                container.innerHTML = `
+                    <div class="col-12">
+                        <div class="alert alert-danger">Impossible de charger ce produit pour le moment.</div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="col-lg-6">
+                    <img src="${product.image || 'https://via.placeholder.com/700x500'}"
+                         class="img-fluid rounded shadow-sm w-100"
+                         alt="${product.name}"
+                         style="max-height: 500px; object-fit: cover;">
+                </div>
+                <div class="col-lg-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h1 class="h2 mb-3">${product.name}</h1>
+                            <p class="price mb-3">${formatPrice(product.price)}</p>
+                            <p class="text-muted">${product.description || 'Aucune description disponible pour ce produit.'}</p>
+
+                            <div class="row g-3 align-items-end mt-3">
+                                <div class="col-sm-4">
+                                    <label for="quantity" class="form-label fw-semibold">Quantité</label>
+                                    <input type="number" id="quantity" class="form-control" min="1" value="1">
+                                </div>
+                                <div class="col-sm-8 d-grid">
+                                    <button class="btn btn-primary" id="addToCartBtn">
+                                        <span class="material-symbols-outlined">add_shopping_cart</span> Ajouter au panier
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div id="cart-feedback" class="alert alert-success mt-3 d-none" role="alert">
+                                Produit ajouté au panier.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('addToCartBtn').addEventListener('click', () => {
+                const quantity = Math.max(1, Number(document.getElementById('quantity').value) || 1);
+                addToCart(product.id, quantity);
+                updateCartCount();
+                document.getElementById('cart-feedback').classList.remove('d-none');
+            });
+        }
+
+        document.getElementById('logoutBtn')?.addEventListener('click', (event) => {
+            event.preventDefault();
+            logout();
+            updateAuthUI();
+            window.location.href = 'index.html';
+        });
+
+        updateAuthUI();
+        updateCartCount();
+        displayProductDetail();
+    </script>
+</body>
+</html>
