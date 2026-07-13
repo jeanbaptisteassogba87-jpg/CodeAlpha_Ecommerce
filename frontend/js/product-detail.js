@@ -1,14 +1,8 @@
 import { API_URL } from "./config.js";
-import { getToken } from "./auth.js";
 
 async function loadProductDetail(productId) {
     try {
-        const token = getToken();
-        const response = await fetch(`${API_URL}products/${productId}/`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
+        const response = await fetch(`${API_URL}products/${productId}/`);
 
         if (response.ok) {
             const product = await response.json();

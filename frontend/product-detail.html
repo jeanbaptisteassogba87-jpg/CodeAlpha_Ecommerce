@@ -1,180 +1,219 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Shop - Détail produit</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Détail produit - Mon Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="index.html">
-                <span class="material-symbols-outlined">storefront</span> Mon Shop
-            </a>
 
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="material-symbols-outlined">bolt</span> Mon Shop
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">
-                            <span class="material-symbols-outlined">home</span> Accueil
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="cart.html">
-                            <span class="material-symbols-outlined">shopping_cart</span> Panier
-                            <span id="cart-count" class="badge bg-danger">0</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" id="auth-links">
-                        <a class="nav-link" href="login.html">
-                            <span class="material-symbols-outlined">login</span> Connexion
-                        </a>
-                    </li>
-                    <li class="nav-item" id="register-link">
-                        <a class="nav-link" href="register.html">
-                            <span class="material-symbols-outlined">app_registration</span> Inscription
-                        </a>
-                    </li>
-                    <li class="nav-item" id="logout-link" style="display: none;">
-                        <a class="nav-link" href="#" id="logoutBtn">
-                            <span class="material-symbols-outlined">logout</span> Déconnexion
-                        </a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="index.html"><span class="material-symbols-outlined">home</span> Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="cart.html"><span class="material-symbols-outlined">shopping_cart</span> Panier <span id="cart-count" class="badge bg-danger">0</span></a></li>
+                    <li class="nav-item" id="auth-links"><a class="nav-link" href="login.html"><span class="material-symbols-outlined">login</span> Connexion</a></li>
+                    <li class="nav-item" id="register-link"><a class="nav-link" href="register.html"><span class="material-symbols-outlined">app_registration</span> Inscription</a></li>
+                    <li class="nav-item" id="orders-link" style="display:none;"><a class="nav-link" href="orders.html"><span class="material-symbols-outlined">receipt_long</span> Mes commandes</a></li>
+                    <li class="nav-item" id="logout-link" style="display:none;"><a class="nav-link" href="#" id="logoutBtn"><span class="material-symbols-outlined">logout</span> Déconnexion</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <main class="container my-4">
-        <a href="index.html" class="btn btn-outline-primary mb-4">
+    <main class="container py-5">
+        <a href="index.html" class="btn-view d-inline-flex mb-4" style="width:auto;">
             <span class="material-symbols-outlined">arrow_back</span> Retour aux produits
         </a>
-
-        <div id="product-detail" class="row g-4 align-items-start">
-            <div class="col-12 text-center py-5">Chargement du produit...</div>
-        </div>
+        <div id="product-detail" class="row g-5"></div>
     </main>
 
-    <footer class="bg-dark text-white text-center py-3 mt-5">
-        <p class="mb-0">&copy; 2026 Mon Shop - Tous droits réservés</p>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <h6><span class="material-symbols-outlined">bolt</span> Mon Shop</h6>
+                    <p class="small mb-0">Les meilleurs produits à vos meilleurs prix, livrés partout au Bénin.</p>
+                </div>
+                <div class="col-md-4">
+                    <h6>Liens rapides</h6>
+                    <p class="mb-1"><a href="index.html">Accueil</a></p>
+                    <p class="mb-1"><a href="cart.html">Mon panier</a></p>
+                    <p class="mb-0"><a href="orders.html">Mes commandes</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h6>Contact</h6>
+                    <p class="mb-1"><span class="material-symbols-outlined" style="font-size:1rem;">mail</span> contact@monshop.com</p>
+                    <p class="mb-0"><span class="material-symbols-outlined" style="font-size:1rem;">location_on</span> Cotonou, Bénin</p>
+                </div>
+            </div>
+            <div class="footer-bottom">&copy; 2026 Mon Shop — Tous droits réservés</div>
+        </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="modal fade" id="cartModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title d-flex align-items-center gap-2">
+                        <span class="material-symbols-outlined" id="modalIcon">info</span>
+                        <span id="modalTitle">Panier</span>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalBody"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module">
         import { isAuthenticated, logout } from './js/auth.js';
         import { loadProductDetail } from './js/product-detail.js';
-        import { addToCart, getCart } from './js/cart.js';
-
-        function formatPrice(price) {
-            return `${Number(price || 0).toLocaleString('fr-FR')} FCFA`;
-        }
+        import { getCart, addToCart } from './js/cart.js';
 
         function updateAuthUI() {
-            const authLinks = document.getElementById('auth-links');
-            const registerLink = document.getElementById('register-link');
-            const logoutLink = document.getElementById('logout-link');
-
-            if (isAuthenticated()) {
-                authLinks.style.display = 'none';
-                registerLink.style.display = 'none';
-                logoutLink.style.display = 'block';
-            } else {
-                authLinks.style.display = 'block';
-                registerLink.style.display = 'block';
-                logoutLink.style.display = 'none';
-            }
+            const isAuth = isAuthenticated();
+            document.getElementById('auth-links').style.display = isAuth ? 'none' : 'block';
+            document.getElementById('register-link').style.display = isAuth ? 'none' : 'block';
+            document.getElementById('orders-link').style.display = isAuth ? 'block' : 'none';
+            document.getElementById('logout-link').style.display = isAuth ? 'block' : 'none';
         }
 
-        function updateCartCount() {
-            const total = getCart().reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cart-count').textContent = total;
-        }
-
-        async function displayProductDetail() {
-            const container = document.getElementById('product-detail');
-            const productId = Number(new URLSearchParams(window.location.search).get('id'));
-
-            if (!productId) {
-                container.innerHTML = `
-                    <div class="col-12">
-                        <div class="alert alert-warning">Produit introuvable. Aucun identifiant produit n'a été fourni.</div>
-                    </div>
-                `;
-                return;
-            }
-
-            const product = await loadProductDetail(productId);
-
-            if (!product) {
-                container.innerHTML = `
-                    <div class="col-12">
-                        <div class="alert alert-danger">Impossible de charger ce produit pour le moment.</div>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = `
-                <div class="col-lg-6">
-                    <img src="${product.image || 'https://via.placeholder.com/700x500'}"
-                         class="img-fluid rounded shadow-sm w-100"
-                         alt="${product.name}"
-                         style="max-height: 500px; object-fit: cover;">
-                </div>
-                <div class="col-lg-6">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h1 class="h2 mb-3">${product.name}</h1>
-                            <p class="price mb-3">${formatPrice(product.price)}</p>
-                            <p class="text-muted">${product.description || 'Aucune description disponible pour ce produit.'}</p>
-
-                            <div class="row g-3 align-items-end mt-3">
-                                <div class="col-sm-4">
-                                    <label for="quantity" class="form-label fw-semibold">Quantité</label>
-                                    <input type="number" id="quantity" class="form-control" min="1" value="1">
-                                </div>
-                                <div class="col-sm-8 d-grid">
-                                    <button class="btn btn-primary" id="addToCartBtn">
-                                        <span class="material-symbols-outlined">add_shopping_cart</span> Ajouter au panier
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div id="cart-feedback" class="alert alert-success mt-3 d-none" role="alert">
-                                Produit ajouté au panier.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('addToCartBtn').addEventListener('click', () => {
-                const quantity = Math.max(1, Number(document.getElementById('quantity').value) || 1);
-                addToCart(product.id, quantity);
-                updateCartCount();
-                document.getElementById('cart-feedback').classList.remove('d-none');
-            });
-        }
-
-        document.getElementById('logoutBtn')?.addEventListener('click', (event) => {
-            event.preventDefault();
+        document.getElementById('logoutBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
             logout();
             updateAuthUI();
             window.location.href = 'index.html';
         });
 
+        function updateCartCount() {
+            document.getElementById('cart-count').textContent = getCart().reduce((s, i) => s + i.quantity, 0);
+        }
+
+        function showModal(title, message, isSuccess = true) {
+            document.getElementById('modalIcon').textContent = isSuccess ? 'check_circle' : 'error';
+            document.getElementById('modalIcon').style.color = isSuccess ? 'var(--success)' : 'var(--danger)';
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalBody').innerHTML = `
+                <div class="alert ${isSuccess ? 'alert-success' : 'alert-danger'} mb-0">${message}</div>
+            `;
+            new bootstrap.Modal(document.getElementById('cartModal')).show();
+        }
+
+        async function displayProduct() {
+            const container = document.getElementById('product-detail');
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+
+            if (!id) {
+                container.innerHTML = `<div class="col-12"><div class="alert alert-danger">Produit non spécifié</div></div>`;
+                return;
+            }
+
+            container.innerHTML = `<div class="col-12 text-center py-5"><div class="spinner-border"></div></div>`;
+            const product = await loadProductDetail(parseInt(id));
+
+            if (!product) {
+                container.innerHTML = `<div class="col-12"><div class="alert alert-danger">Produit introuvable</div></div>`;
+                return;
+            }
+
+            let quantity = 1;
+            const stock = product.stock;
+
+            container.innerHTML = `
+                <div class="col-md-6">
+                    <div class="product-image-wrapper" style="height:420px;border-radius:var(--radius-md);">
+                        <img src="${product.image || 'https://placehold.co/600x400?text=Produit'}" class="product-image" alt="${product.name}">
+                        <span class="stock-badge ${stock > 0 ? 'stock-available' : 'stock-out'}">
+                            ${stock > 0 ? 'En stock' : 'Rupture'}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h2 class="fw-bold mb-2">${product.name}</h2>
+                    <p class="text-secondary">${product.description || 'Aucune description'}</p>
+                    <div class="price fs-3 mb-2">${product.price}<span class="currency"> FCFA</span></div>
+                    <p class="small text-secondary mb-4">
+                        <span class="material-symbols-outlined align-middle" style="font-size:1rem;">inventory_2</span>
+                        ${stock > 0 ? stock + ' unités disponibles' : 'Rupture de stock'}
+                    </p>
+                    ${stock > 0 ? `
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <span class="fw-semibold">Quantité</span>
+                            <div class="qty-control">
+                                <button id="qty-minus">−</button>
+                                <span id="qty-value">1</span>
+                                <button id="qty-plus">+</button>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button id="add-to-cart-btn" class="btn btn-primary btn-lg">
+                                <span class="material-symbols-outlined">add_shopping_cart</span> Ajouter au panier
+                            </button>
+                            <button id="buy-now-btn" class="btn btn-dark-custom btn-lg">
+                                <span class="material-symbols-outlined">bolt</span> Acheter maintenant
+                            </button>
+                        </div>
+                    ` : `
+                        <button class="btn btn-secondary btn-lg" disabled>Rupture de stock</button>
+                    `}
+                </div>
+            `;
+
+            document.getElementById('qty-minus')?.addEventListener('click', () => {
+                if (quantity > 1) {
+                    quantity--;
+                    document.getElementById('qty-value').textContent = quantity;
+                }
+            });
+
+            document.getElementById('qty-plus')?.addEventListener('click', () => {
+                if (quantity < stock) {
+                    quantity++;
+                    document.getElementById('qty-value').textContent = quantity;
+                } else {
+                    showModal('Stock limité', `Stock maximum : ${stock}`, false);
+                }
+            });
+
+            document.getElementById('add-to-cart-btn')?.addEventListener('click', async function() {
+                const result = await addToCart(product.id, quantity);
+                updateCartCount();
+                if (result.success) {
+                    showModal('Ajouté au panier', result.message, true);
+                } else {
+                    showModal('Erreur', result.message, false);
+                }
+            });
+
+            document.getElementById('buy-now-btn')?.addEventListener('click', async function() {
+                const result = await addToCart(product.id, quantity);
+                if (result.success) {
+                    window.location.href = 'checkout.html';
+                } else {
+                    showModal('Erreur', result.message, false);
+                }
+            });
+        }
+
         updateAuthUI();
         updateCartCount();
-        displayProductDetail();
+        displayProduct();
     </script>
 </body>
 </html>

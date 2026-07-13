@@ -1,26 +1,21 @@
 import { API_URL } from "./config.js";
-import { getToken } from "./auth.js";
 
-async function loadProducts(){
+async function loadProducts() {
     try {
-        const token = getToken();
-        const response = await fetch(`${API_URL}products/`,{
-            headers : {
-                'Authorization': `Bearer ${token}`
-            }
-        });
+        // ⚠️ NE PAS AJOUTER DE TOKEN ICI
+        const response = await fetch(`${API_URL}products/`);
 
-        if(response.ok){
+        if (response.ok) {
             const products = await response.json();
-            return products ;
-        }else{
-            console.error('Erreur lors du chargement des profuits !');
+            return products;
+        } else {
+            console.error('Erreur lors du chargement des produits !');
             return [];
         }
     } catch (error) {
-        console.error('Erreur réseau',error);
+        console.error('Erreur réseau', error);
         return [];
     }
 }
 
-export {loadProducts} ;
+export { loadProducts };

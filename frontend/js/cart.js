@@ -1,4 +1,4 @@
-import { loadProducts } from './products.js';  // ← AJOUTER CETTE LIGNE
+import { loadProducts } from './products.js';
 
 function getCart() {
     const cart = localStorage.getItem('cart');
@@ -8,36 +8,48 @@ function getCart() {
     return [];
 }
 
-function addToCart(productId, quantity = 1) {
+async function addToCart(productId, quantity = 1) {
     if (quantity <= 0) {
-        console.warn('La quantité doit être positive.');
-        return;
+        return { success: false, message: 'La quantité doit être positive.' };
+    }
+
+    const products = await loadProducts();
+    const product = products.find(p => p.id === productId);
+
+    if (!product) {
+        return { success: false, message: 'Produit introuvable.' };
+    }
+
+    if (quantity > product.stock) {
+        return { success: false, message: `Stock insuffisant. Il reste ${product.stock} exemplaire(s).` };
     }
 
     const cart = getCart();
     const existingItem = cart.find(item => item.productId === productId);
+    const currentQuantity = existingItem ? existingItem.quantity : 0;
+
+    if (currentQuantity + quantity > product.stock) {
+        return { success: false, message: `Vous ne pouvez pas ajouter plus que le stock disponible (${product.stock}).` };
+    }
 
     if (existingItem) {
         existingItem.quantity += quantity;
-        console.log(`Quantité du produit ${productId} augmentée à ${existingItem.quantity}`);
     } else {
         cart.push({ productId, quantity });
-        console.log(`Produit ${productId} ajouté au panier (${quantity})`);
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
+    return { success: true, message: `${quantity} "${product.name}" ajouté au panier !` };
 }
 
 function removeFromCart(productId) {
     let cart = getCart();
     cart = cart.filter(item => item.productId !== productId);
     localStorage.setItem('cart', JSON.stringify(cart));
-    console.log(`🗑️ Produit ${productId} retiré du panier`);
 }
 
 function clearCart() {
     localStorage.removeItem('cart');
-    console.log('Panier vidé');
 }
 
 async function getCartDetails() {

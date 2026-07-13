@@ -1,91 +1,84 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Shop - Inscription</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inscription - Mon Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="index.html">
-                <span class="material-symbols-outlined">storefront</span> Mon Shop
-            </a>
 
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="material-symbols-outlined">bolt</span> Mon Shop
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">
-                            <span class="material-symbols-outlined">home</span> Accueil
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="cart.html">
-                            <span class="material-symbols-outlined">shopping_cart</span> Panier
-                            <span id="cart-count" class="badge bg-danger">0</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.html">
-                            <span class="material-symbols-outlined">login</span> Connexion
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="register.html">
-                            <span class="material-symbols-outlined">app_registration</span> Inscription
-                        </a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="index.html"><span class="material-symbols-outlined">home</span> Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="cart.html"><span class="material-symbols-outlined">shopping_cart</span> Panier <span id="cart-count" class="badge bg-danger">0</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html"><span class="material-symbols-outlined">login</span> Connexion</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="register.html"><span class="material-symbols-outlined">app_registration</span> Inscription</a></li>
+                    <li class="nav-item" id="orders-link" style="display:none;"><a class="nav-link" href="orders.html"><span class="material-symbols-outlined">receipt_long</span> Mes commandes</a></li>
+                    <li class="nav-item" id="logout-link" style="display:none;"><a class="nav-link" href="#" id="logoutBtn"><span class="material-symbols-outlined">logout</span> Déconnexion</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <main class="container my-5">
+    <main class="container my-4 my-md-5 px-3">
         <div class="row justify-content-center">
-            <div class="col-md-7 col-lg-5">
-                <div class="card shadow-sm">
+            <div class="col-12 col-sm-9 col-md-7 col-lg-5">
+                <div class="card auth-card">
                     <div class="card-body">
-                        <h1 class="h3 mb-4 text-center">Créer un compte</h1>
+                        <div class="text-center mb-4">
+                            <span class="material-symbols-outlined" style="font-size:2.5rem;color:var(--accent1);">person_add</span>
+                            <h1 class="h3 mt-2">Créer un compte</h1>
+                            <p class="text-secondary small">Rejoignez Mon Shop en quelques secondes</p>
+                        </div>
 
-                        <form id="registerForm">
+                        <form id="registerForm" novalidate>
                             <div class="mb-3">
-                                <label for="username" class="form-label fw-semibold">Nom d'utilisateur</label>
-                                <input type="text" class="form-control" id="username" autocomplete="username" required>
+                                <label for="name" class="form-label fw-semibold">Nom complet</label>
+                                <input type="text" class="form-control" id="name" placeholder="Jean Dupont" required />
                             </div>
-
                             <div class="mb-3">
-                                <label for="email" class="form-label fw-semibold">Email</label>
-                                <input type="email" class="form-control" id="email" autocomplete="email" required>
+                                <label for="email" class="form-label fw-semibold">Adresse email</label>
+                                <input type="email" class="form-control" id="email" placeholder="exemple@email.com" required />
+                                <div class="form-hint">C'est cet email qui te servira à te connecter.</div>
                             </div>
-
                             <div class="mb-3">
                                 <label for="password" class="form-label fw-semibold">Mot de passe</label>
-                                <input type="password" class="form-control" id="password" autocomplete="new-password" minlength="4" required>
+                                <div class="password-wrapper">
+                                    <input type="password" class="form-control" id="password" placeholder="Minimum 4 caractères" required />
+                                    <button type="button" class="password-toggle" data-target="password">
+                                        <span class="material-symbols-outlined">visibility</span>
+                                    </button>
+                                </div>
                             </div>
-
                             <div class="mb-3">
                                 <label for="confirmPassword" class="form-label fw-semibold">Confirmer le mot de passe</label>
-                                <input type="password" class="form-control" id="confirmPassword" autocomplete="new-password" minlength="4" required>
+                                <div class="password-wrapper">
+                                    <input type="password" class="form-control" id="confirmPassword" placeholder="Ressaisis ton mot de passe" required />
+                                    <button type="button" class="password-toggle" data-target="confirmPassword">
+                                        <span class="material-symbols-outlined">visibility</span>
+                                    </button>
+                                </div>
+                                <div id="matchHint" class="form-hint"></div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary w-100" id="registerBtn">
-                                <span class="material-symbols-outlined">person_add</span> Créer le compte
+                            <button type="submit" class="btn btn-primary w-100 mt-2" id="registerBtn">
+                                <span class="material-symbols-outlined">person_add</span> S'inscrire
                             </button>
                         </form>
 
-                        <div id="message" class="alert mt-3 d-none" role="alert"></div>
-
-                        <p class="text-center text-muted mt-3 mb-0">
-                            Déjà un compte ?
-                            <a href="login.html">Se connecter</a>
+                        <p class="text-center text-secondary mt-3 mb-0">
+                            Déjà un compte ? <a href="login.html" style="color:var(--accent1);font-weight:600;">Se connecter</a>
                         </p>
                     </div>
                 </div>
@@ -93,64 +86,153 @@
         </div>
     </main>
 
-    <footer class="bg-dark text-white text-center py-3 mt-5">
-        <p class="mb-0">&copy; 2026 Mon Shop - Tous droits réservés</p>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom">&copy; 2026 Mon Shop — Tous droits réservés</div>
+        </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="modal fade" id="messageModal" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title d-flex align-items-center gap-2">
+                        <span class="material-symbols-outlined" id="messageModalIcon">info</span>
+                        <span id="messageModalTitle">Message</span>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="messageModalBody"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module">
-        import { isAuthenticated, register } from './js/auth.js';
+        import { register, isAuthenticated, logout } from './js/auth.js';
         import { getCart } from './js/cart.js';
 
-        function updateCartCount() {
-            const total = getCart().reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cart-count').textContent = total;
+        function updateAuthUI() {
+            const isAuth = isAuthenticated();
+            document.getElementById('orders-link').style.display = isAuth ? 'block' : 'none';
+            document.getElementById('logout-link').style.display = isAuth ? 'block' : 'none';
         }
 
-        function showMessage(text, type) {
-            const message = document.getElementById('message');
-            message.textContent = text;
-            message.className = `alert alert-${type} mt-3`;
-        }
-
-        if (isAuthenticated()) {
+        document.getElementById('logoutBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            logout();
+            updateAuthUI();
             window.location.href = 'index.html';
+        });
+
+        document.querySelectorAll('.password-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const input = document.getElementById(btn.dataset.target);
+                const icon = btn.querySelector('.material-symbols-outlined');
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.textContent = 'visibility_off';
+                } else {
+                    input.type = 'password';
+                    icon.textContent = 'visibility';
+                }
+            });
+        });
+
+        const pwd = document.getElementById('password');
+        const confirmPwd = document.getElementById('confirmPassword');
+        const matchHint = document.getElementById('matchHint');
+
+        function checkMatch() {
+            if (!confirmPwd.value) {
+                matchHint.textContent = '';
+                matchHint.className = 'form-hint';
+                return;
+            }
+            if (pwd.value === confirmPwd.value) {
+                matchHint.textContent = 'Les mots de passe correspondent';
+                matchHint.className = 'form-hint text-success';
+            } else {
+                matchHint.textContent = 'Les mots de passe ne correspondent pas';
+                matchHint.className = 'form-hint text-danger';
+            }
+        }
+        pwd.addEventListener('input', checkMatch);
+        confirmPwd.addEventListener('input', checkMatch);
+
+        function showModal(title, message, isSuccess = true) {
+            document.getElementById('messageModalIcon').textContent = isSuccess ? 'check_circle' : 'error';
+            document.getElementById('messageModalIcon').style.color = isSuccess ? 'var(--success)' : 'var(--danger)';
+            document.getElementById('messageModalTitle').textContent = title;
+            document.getElementById('messageModalBody').innerHTML = `
+                <div class="alert ${isSuccess ? 'alert-success' : 'alert-danger'} mb-0">${message}</div>
+            `;
+            new bootstrap.Modal(document.getElementById('messageModal')).show();
         }
 
-        document.getElementById('registerForm').addEventListener('submit', async (event) => {
-            event.preventDefault();
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-            const registerBtn = document.getElementById('registerBtn');
-            const username = document.getElementById('username').value.trim();
+            const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
+            if (!name || !email || !password || !confirmPassword) {
+                showModal('Champs manquants', 'Veuillez remplir tous les champs.', false);
+                return;
+            }
+            if (!email.includes('@') || !email.includes('.')) {
+                showModal('Email invalide', 'Veuillez entrer une adresse email valide.', false);
+                return;
+            }
+            if (password.length < 4) {
+                showModal('Mot de passe trop court', 'Le mot de passe doit contenir au moins 4 caractères.', false);
+                return;
+            }
             if (password !== confirmPassword) {
-                showMessage('Les mots de passe ne correspondent pas', 'danger');
+                showModal('Mots de passe différents', 'Les mots de passe ne correspondent pas.', false);
                 return;
             }
 
-            registerBtn.disabled = true;
-            registerBtn.textContent = 'Création...';
+            const btn = document.getElementById('registerBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Création...';
 
-            const result = await register(username, email, password);
+            try {
+                const result = await register(name, email, password);
+                btn.disabled = false;
+                btn.innerHTML = '<span class="material-symbols-outlined">person_add</span> S\'inscrire';
 
-            if (result === "Compte créé avec succès") {
-                showMessage('Compte créé avec succès. Redirection vers la connexion...', 'success');
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 1200);
-                return;
+                if (result === "Compte créé avec succès") {
+                    showModal('Inscription réussie', `
+                        Votre compte a été créé avec succès !<br><br>
+                        <strong>Email :</strong> ${email}<br>
+                        Vous pouvez maintenant vous connecter avec cet email.
+                    `, true);
+                    document.getElementById('registerForm').reset();
+                    matchHint.textContent = '';
+                } else {
+                    showModal('Erreur', typeof result === 'string' ? result : 'Une erreur est survenue.', false);
+                }
+            } catch (err) {
+                btn.disabled = false;
+                btn.innerHTML = '<span class="material-symbols-outlined">person_add</span> S\'inscrire';
+                showModal('Erreur réseau', 'Impossible de contacter le serveur.', false);
             }
-
-            showMessage(result, 'danger');
-            registerBtn.disabled = false;
-            registerBtn.innerHTML = '<span class="material-symbols-outlined">person_add</span> Créer le compte';
         });
 
+        function updateCartCount() {
+            const total = getCart().reduce((sum, item) => sum + item.quantity, 0);
+            const cartCount = document.getElementById('cart-count');
+            if (cartCount) cartCount.textContent = total;
+        }
+
         updateCartCount();
+        updateAuthUI();
     </script>
 </body>
 </html>

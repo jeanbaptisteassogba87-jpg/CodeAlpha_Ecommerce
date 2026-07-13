@@ -1,74 +1,70 @@
 import { API_URL } from "./config.js";
 
+async function login(email, password) {
+    try {
+        const response = await fetch(`${API_URL}token/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        });
 
-async function register(username, email, password) {
+        if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem('token', data.access);
+            return "Connexion réussie";
+        } else {
+            return "Identifiants incorrects";
+        }
+    } catch (erreur) {
+        return "Erreur de connexion au serveur";
+    }
+}
+
+async function register(name, email, password) {
     try {
         const response = await fetch(`${API_URL}users/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name: username, email, password }),
+            body: JSON.stringify({ name, email, password })
         });
 
         if (response.ok) {
             return "Compte créé avec succès";
         }
 
-        const data = await response.json().catch(() => ({}));
+        // On lit le détail de l'erreur renvoyée par Django REST Framework
+        const errorData = await response.json();
 
-        if (data.name) {
-            return "Ce nom d'utilisateur est déjà utilisé";
+        if (errorData.email) {
+            return `Email : ${errorData.email[0]}`;
         }
-        if (data.email) {
-            return "Cette adresse email est déjà utilisée";
+        if (errorData.password) {
+            return `Mot de passe : ${errorData.password[0]}`;
         }
-        if (data.password) {
-            return "Le mot de passe est invalide";
+        if (errorData.name) {
+            return `Nom : ${errorData.name[0]}`;
         }
+        return "Erreur lors de la création du compte.";
 
-        return "Impossible de créer le compte";
     } catch (erreur) {
         return "Erreur de connexion au serveur";
     }
 }
 
-async function login(username,password){
-    try {
-        const response = await fetch(`${API_URL}token/`,{
-            method : 'POST',
-            headers : {
-                'Content-Type': 'application/json'
-            },
-            body : JSON.stringify({username,password}),
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            localStorage.setItem('token',data.access);
-            return "Connexion réussie" ;
-        }else{
-            return "Identifiants incorrects"
-        }
-
-    } catch (erreur) {
-        return "Erreur de connexion au serveur" ; 
-    }
-}
-
-function logout(){
+function logout() {
     localStorage.removeItem('token');
 }
 
-
-function isAuthenticated(){
-    const token = localStorage.getItem('token');
-    return token != null ;
+function isAuthenticated() {
+    return localStorage.getItem('token') !== null;
 }
 
-function getToken(){
-    const token = localStorage.getItem('token');
-    return token ;
+function getToken() {
+    return localStorage.getItem('token');
 }
 
-export {register, login , logout , isAuthenticated , getToken}
+export { login, register, logout, isAuthenticated, getToken };
