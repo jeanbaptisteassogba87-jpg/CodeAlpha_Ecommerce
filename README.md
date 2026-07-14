@@ -132,14 +132,17 @@ Le site est accessible sur **http://127.0.0.1:5500/index.html**.
 
 ---
 
-## 🔑 Identifiants de test
+## 🔑 Accès administrateur et compte de test
 
-| Rôle | Email | Mot de passe |
-|---|---|---|
-| Superutilisateur (admin) | `nexor@gmail.com` | `nexor123` |
-| Utilisateur standard | `test@test.com` | `test123` |
+Aucun identifiant n'est fourni dans ce dépôt pour des raisons de sécurité. Pour créer ton propre compte administrateur après l'installation :
 
-L'espace d'administration Django est accessible sur **http://127.0.0.1:8000/admin/**.
+```bash
+python manage.py createsuperuser
+```
+
+Suis les instructions (email, nom, mot de passe), puis connecte-toi sur **http://127.0.0.1:8000/admin/**.
+
+Pour tester le site en tant que client, crée un compte directement depuis la page d'inscription (`register.html`).
 
 ---
 
