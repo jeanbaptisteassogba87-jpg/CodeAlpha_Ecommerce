@@ -130,6 +130,22 @@ Le site est accessible sur **http://127.0.0.1:5500/index.html**.
 
 > ⚠️ Le backend doit tourner en même temps que le frontend pour que le site fonctionne (l'API est appelée depuis `js/config.js`).
 
+### Configuration pour la mise en ligne
+
+Avant de publier le frontend, remplace l'adresse locale dans `frontend/js/config.js` par l'adresse publique de l'API. Le backend doit recevoir ces variables d'environnement :
+
+```text
+DJANGO_DEBUG=False
+DJANGO_SECRET_KEY=<une clé secrète privée>
+DJANGO_ALLOWED_HOSTS=<domaine de l'API>
+CORS_ALLOWED_ORIGINS=<adresse du frontend>
+DATABASE_URL=<adresse de la base PostgreSQL>
+```
+
+La clé secrète ne doit pas être ajoutée au dépôt. En production, Django refuse de démarrer si `DEBUG` est désactivé sans `DJANGO_SECRET_KEY`. Sans réglage de base de données, le projet continue d'utiliser SQLite en local. Pour SQL Server ou Azure SQL, définis `DATABASE_ENGINE=mssql`, puis `SQL_DATABASE`, `SQL_USER`, `SQL_PASSWORD` et `SQL_HOST` (le port `1433` est utilisé par défaut). `DATABASE_URL` reste l'option PostgreSQL.
+
+Pour Render avec PostgreSQL, le backend se configure avec le dossier racine `backend`, la commande de build `pip install -r requirements.txt && python manage.py collectstatic --no-input && python manage.py migrate` et la commande de démarrage `gunicorn ecommerce_api.wsgi:application --bind 0.0.0.0:$PORT`. Publie `frontend` comme site statique. Après création des deux services, renseigne leurs domaines dans `DJANGO_ALLOWED_HOSTS`, `CORS_ALLOWED_ORIGINS` et `frontend/js/config.js`. Pour SQL Server, il faut utiliser un serveur SQL accessible depuis l'hébergeur, par exemple Azure SQL ; Render ne fournit que PostgreSQL comme base relationnelle gérée.
+
 ---
 
 ## 🔑 Accès administrateur et compte de test

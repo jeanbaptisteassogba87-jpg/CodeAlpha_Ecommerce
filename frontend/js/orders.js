@@ -11,48 +11,27 @@ export async function createOrder(cartItems, address) {
         throw new Error('Votre panier est vide.');
     }
 
-    // Calculer le total
-    const total = cartItems.reduce((sum, item) => sum + item.total, 0);
-
-    // 1. Créer la commande
-    const response = await fetch(`${API_URL}orders/`, {
+    const response = await fetch(`${API_URL}create_order/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-            total: total,
-            address: address,
-            status: 'En attente'
+            cart: cartItems.map(item => ({
+                productId: item.productId,
+                quantity: item.quantity
+            })),
+            address
         })
     });
 
+    const data = await response.json();
     if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.detail || 'Erreur lors de la création de la commande');
+        throw new Error(data.error || data.detail || 'Erreur lors de la création de la commande');
     }
 
-    const order = await response.json();
-
-    // 2. Ajouter les items à la commande
-    for (const item of cartItems) {
-        await fetch(`${API_URL}order-items/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                order: order.id,
-                product: item.productId,
-                quantity: item.quantity,
-                price: item.price
-            })
-        });
-    }
-
-    return order;
+    return data;
 }
 
 // Récupérer les commandes de l'utilisateur
