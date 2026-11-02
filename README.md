@@ -146,6 +146,20 @@ La clé secrète ne doit pas être ajoutée au dépôt. En production, Django re
 
 Pour Render avec PostgreSQL, le backend se configure avec le dossier racine `backend`, la commande de build `pip install -r requirements.txt && python manage.py collectstatic --no-input && python manage.py migrate` et la commande de démarrage `gunicorn ecommerce_api.wsgi:application --bind 0.0.0.0:$PORT`. Publie `frontend` comme site statique. Après création des deux services, renseigne leurs domaines dans `DJANGO_ALLOWED_HOSTS`, `CORS_ALLOWED_ORIGINS` et `frontend/js/config.js`. Pour SQL Server, il faut utiliser un serveur SQL accessible depuis l'hébergeur, par exemple Azure SQL ; Render ne fournit que PostgreSQL comme base relationnelle gérée.
 
+### Déploiement Azure avec SQL Server
+
+Le dépôt contient aussi un `requirements.txt` à sa racine qui pointe vers les dépendances du backend. Pour Azure App Service, choisis Linux et Python 3.12 ou plus récent. Dans **Deployment Center**, connecte le dépôt GitHub et déploie la branche `main`. Dans **Configuration > General settings**, utilise cette commande de démarrage :
+
+```text
+cd backend && gunicorn ecommerce_api.wsgi:application --bind=0.0.0.0:8000
+```
+
+Dans **Environment variables**, configure `DJANGO_DEBUG=False`, `DJANGO_SECRET_KEY` (une valeur générée et privée), `DJANGO_ALLOWED_HOSTS=<nom-app>.azurewebsites.net`, `CORS_ALLOWED_ORIGINS=<URL-du-site-statique>`, `DATABASE_ENGINE=mssql`, `SQL_DATABASE`, `SQL_USER`, `SQL_PASSWORD`, `SQL_HOST` et `SQL_PORT=1433`. Dans Azure SQL, récupère `SQL_HOST` sous la forme `<nom-serveur>.database.windows.net`.
+
+Crée ensuite un site **Azure Static Web Apps** lié au même dépôt et à la branche `main`, avec `frontend` comme emplacement de l'application, sans emplacement d'API ni commande de build. Copie son URL dans `CORS_ALLOWED_ORIGINS`, puis remplace l'adresse locale dans `frontend/js/config.js` par `https://<nom-app>.azurewebsites.net/api/` et pousse ce changement.
+
+Après le premier déploiement, ouvre la console SSH de l'App Service et exécute `cd /home/site/wwwroot/backend && python manage.py migrate`. Tu peux ensuite créer un administrateur avec `python manage.py createsuperuser`. Dans le pare-feu réseau du serveur Azure SQL, autorise les adresses sortantes affichées dans **Properties** de l'App Service. Évite d'autoriser toutes les ressources Azure pour une base qui contient des données réelles.
+
 ---
 
 ## 🔑 Accès administrateur et compte de test
