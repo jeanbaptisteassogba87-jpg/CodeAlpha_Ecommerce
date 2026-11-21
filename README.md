@@ -1,213 +1,333 @@
-# 🛍️ Mon Shop — E-commerce Full Stack
+# 🛍️ Mon Shop — Full Stack E-commerce
 
-Projet réalisé dans le cadre du stage **Full Stack Development** chez [CodeAlpha](https://www.codealpha.tech) — Tâche 1 : *Simple E-commerce Store*.
+\<p align="center">
+&#x20; \<strong>Application e-commerce développée avec Django REST Framework et JavaScript.\</strong>
+\</p>
 
-Site e-commerce complet permettant à un utilisateur de parcourir des produits, créer un compte, gérer un panier, et passer une commande, avec une interface d'administration Django pour la gestion des produits et des commandes.
+\<p align="center">
+&#x20; \<img src="[https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python\&logoColor=white)" alt="Python">
+&#x20; \<img src="[https://img.shields.io/badge/Django-6.0-092E20?logo=django&logoColor=white](https://img.shields.io/badge/Django-6.0-092E20?logo=django\&logoColor=white)" alt="Django">
+&#x20; \<img src="[https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?logo=javascript&logoColor=black](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?logo=javascript\&logoColor=black)" alt="JavaScript">
+&#x20; \<img src="[https://img.shields.io/badge/Bootstrap-5-7952B3?logo=bootstrap&logoColor=white](https://img.shields.io/badge/Bootstrap-5-7952B3?logo=bootstrap\&logoColor=white)" alt="Bootstrap">
+&#x20; \<img src="[https://img.shields.io/badge/SQLite-Database-003B57?logo=sqlite&logoColor=white](https://img.shields.io/badge/SQLite-Database-003B57?logo=sqlite\&logoColor=white)" alt="SQLite">
+&#x20; \<img src="[https://img.shields.io/badge/API-REST-orange](https://img.shields.io/badge/API-REST-orange)" alt="REST API">
+\</p>
 
 ---
 
-## 📋 Sommaire
+## 📌 Présentation
 
-- [Fonctionnalités](#-fonctionnalités)
-- [Stack technique](#-stack-technique)
-- [Structure du projet](#-structure-du-projet)
-- [Installation](#-installation)
-- [Identifiants de test](#-identifiants-de-test)
-- [Endpoints API](#-endpoints-api)
-- [Captures d'écran](#-captures-décran)
-- [Améliorations possibles](#-améliorations-possibles)
+**Mon Shop** est une application web e-commerce Full Stack réalisée dans le cadre du stage **Full Stack Development chez [CodeAlpha](https://www.codealpha.tech)** — Tâche 1 : *Simple E-commerce Store*.
+
+L'application permet aux visiteurs de parcourir un catalogue de produits, aux clients de créer un compte, de gérer leur panier et de passer des commandes.
+
+Elle intègre également une interface d'administration Django permettant de gérer les produits, les utilisateurs et les commandes.
+
+Le projet repose sur une architecture séparant le frontend et le backend, avec une communication assurée par une API REST et une authentification basée sur JWT.
+
+### 🎯 Objectifs du projet
+
+- Concevoir et développer une application e-commerce fonctionnelle.
+- Mettre en pratique le développement backend avec Django et Django REST Framework.
+- Développer une interface utilisateur dynamique en JavaScript.
+- Implémenter une authentification basée sur JWT.
+- Gérer les produits, les paniers et les commandes.
+- Structurer une application avec une architecture frontend/backend séparée.
 
 ---
 
 ## ✨ Fonctionnalités
 
-**Côté visiteur (sans compte)**
-- Parcourir tous les produits disponibles
-- Rechercher un produit par nom
-- Filtrer par catégorie et par fourchette de prix
-- Consulter le détail d'un produit (description, stock, images)
-- Ajouter des produits au panier sans être connecté
+### 🌐 Espace visiteur
 
-**Côté utilisateur connecté**
-- Inscription et connexion sécurisées (JWT)
-- Gestion du panier : ajout, modification de quantité, suppression
-- Passage de commande avec adresse de livraison
-- Historique des commandes et détail de chaque commande
-- Vérification du stock disponible avant ajout au panier
+- Consultation du catalogue de produits.
+- Recherche de produits par nom.
+- Filtrage par catégorie et fourchette de prix.
+- Consultation des détails d'un produit.
+- Visualisation des images, descriptions et stocks disponibles.
+- Ajout de produits au panier sans authentification.
 
-**Côté administration (Django Admin)**
-- Gestion des produits (ajout, modification, images, stock)
-- Gestion des utilisateurs
-- Suivi des commandes passées
+### 👤 Espace client
+
+- Inscription et connexion sécurisées par JWT.
+- Gestion du panier :
+  - Ajout de produits.
+  - Modification des quantités.
+  - Suppression de produits.
+- Vérification de la disponibilité du stock.
+- Passage de commandes avec adresse de livraison.
+- Consultation de l'historique des commandes.
+- Consultation des détails de chaque commande.
+
+### ⚙️ Espace administration
+
+Interface d'administration basée sur Django Admin.
+
+- Gestion du catalogue de produits.
+- Ajout et modification des produits.
+- Gestion des images et des stocks.
+- Gestion des utilisateurs.
+- Consultation et suivi des commandes.
 
 ---
 
-## 🛠 Stack technique
+## 🛠️ Stack technique
 
-| Côté | Technologies |
-|---|---|
-| **Frontend** | HTML5, CSS3 (design personnalisé), JavaScript (ES Modules, Vanilla), Bootstrap 5, Google Material Symbols |
-| **Backend** | Django 6, Django REST Framework |
-| **Authentification** | JWT via `djangorestframework-simplejwt` |
-| **Base de données** | SQLite (développement local) |
-| **Autres** | `django-cors-headers` pour la communication frontend/backend |
+| Domaine                  | Technologies                       |
+| ------------------------ | ---------------------------------- |
+| Frontend                 | HTML5, CSS3, JavaScript ES Modules |
+| Framework CSS            | Bootstrap 5                        |
+| Backend                  | Python, Django 6                   |
+| API REST                 | Django REST Framework              |
+| Authentification         | JSON Web Token (Simple JWT)        |
+| Base de données          | SQLite                             |
+| Communication            | Fetch API, django-cors-headers     |
+| Serveur de développement | Django Development Server          |
 
 ---
 
-## 📁 Structure du projet
+## 🏗️ Architecture du projet
 
-```
+Le projet adopte une architecture **Frontend / Backend séparée**.
+
+- **Frontend :** interface utilisateur et interactions avec l'API.
+- **Backend :** logique métier, authentification et gestion des données.
+- **Base de données :** stockage des utilisateurs, produits et commandes.
+
+### Structure des dossiers
+
+```text
 CodeAlpha_Ecommerce/
+│
 ├── backend/
-│   ├── ecommerce_api/       # Configuration Django (settings, urls)
-│   ├── products/            # App produits (modèle, API, images)
-│   ├── users/               # App utilisateurs (modèle User personnalisé, auth)
-│   ├── orders/              # App commandes (Order, OrderItem, création de commande)
-│   ├── media/                # Images produits uploadées
+│   ├── ecommerce_api/       # Configuration principale Django
+│   ├── products/            # Gestion des produits
+│   ├── users/               # Utilisateurs et authentification
+│   ├── orders/              # Gestion des commandes
+│   ├── media/               # Images des produits
 │   └── manage.py
 │
-└── frontend/
-    ├── index.html            # Accueil : liste des produits, recherche, filtres
-    ├── login.html            # Connexion
-    ├── register.html         # Inscription
-    ├── product-detail.html   # Détail produit
-    ├── cart.html             # Panier
-    ├── checkout.html         # Passage de commande
-    ├── orders.html           # Historique des commandes
-    ├── order-detail.html     # Détail d'une commande
-    ├── order-confirmation.html
-    ├── css/
-    │   └── style.css         # Design complet du site
-    └── js/
-        ├── config.js         # URL de l'API
-        ├── auth.js           # login, register, logout, gestion du token
-        ├── products.js       # Chargement des produits
-        ├── product-detail.js # Chargement d'un produit précis
-        ├── cart.js           # Gestion du panier (localStorage)
-        ├── orders.js         # Historique des commandes
-        └── register.js       # Logique du formulaire d'inscription
+├── frontend/
+│   ├── index.html
+│   ├── login.html
+│   ├── register.html
+│   ├── product-detail.html
+│   ├── cart.html
+│   ├── checkout.html
+│   ├── orders.html
+│   ├── order-detail.html
+│   ├── order-confirmation.html
+│   │
+│   ├── css/
+│   │   └── style.css
+│   │
+│   └── js/
+│       ├── config.js
+│       ├── auth.js
+│       ├── products.js
+│       ├── product-detail.js
+│       ├── cart.js
+│       ├── orders.js
+│       └── register.js
+│
+├── screenshots/             # Captures d'écran de l'application
+│   ├── ecran_accueil.png
+│   ├── ecran_connexion.png
+│   ├── ecran_detail_produit.png
+│   ├── ecran_panier.png
+│   └── ecran_commandes.png
+│
+├── requirements.txt
+└── README.md
 ```
 
 ---
 
-## 🚀 Installation
+## 🚀 Installation et exécution locale
 
 ### Prérequis
-- Python 3.10+
-- Un navigateur récent
+
+- Python 3.10 ou supérieur.
+- pip.
+- Git.
+- Un navigateur web récent.
 
 ### 1. Cloner le dépôt
 
 ```bash
 git clone git@github.com:jeanbaptisteassogba87-jpg/CodeAlpha_Ecommerce.git
+
 cd CodeAlpha_Ecommerce
 ```
 
-### 2. Lancer le backend (Django)
+### 2. Configurer le backend
+
+Accéder au dossier backend :
 
 ```bash
 cd backend
-python3 -m venv env
-source env/bin/activate        # sous Linux/Mac
-pip install -r requirements.txt
+```
 
+Créer un environnement virtuel :
+
+```bash
+python3 -m venv env
+```
+
+Activer l'environnement virtuel sous Linux/macOS :
+
+```bash
+source env/bin/activate
+```
+
+Installer les dépendances :
+
+```bash
+pip install -r requirements.txt
+```
+
+Appliquer les migrations :
+
+```bash
 python manage.py migrate
+```
+
+Démarrer le serveur Django :
+
+```bash
 python manage.py runserver
 ```
 
-Le backend est accessible sur **http://127.0.0.1:8000/**.
+Le backend sera accessible à l'adresse :
+
+[**http://127.0.0.1:8000/**](http://127.0.0.1:8000/)
 
 ### 3. Lancer le frontend
 
-Dans un second terminal :
+Ouvrir un deuxième terminal depuis la racine du projet :
 
 ```bash
 cd frontend
+```
+
+Démarrer un serveur HTTP local :
+
+```bash
 python3 -m http.server 5500
 ```
 
-Le site est accessible sur **http://127.0.0.1:5500/index.html**.
+Accéder à l'application :
 
-> ⚠️ Le backend doit tourner en même temps que le frontend pour que le site fonctionne (l'API est appelée depuis `js/config.js`).
+[**http://127.0.0.1:5500/index.html**](http://127.0.0.1:5500/index.html)
 
-### Configuration pour la mise en ligne
-
-Avant de publier le frontend, remplace l'adresse locale dans `frontend/js/config.js` par l'adresse publique de l'API. Le backend doit recevoir ces variables d'environnement :
-
-```text
-DJANGO_DEBUG=False
-DJANGO_SECRET_KEY=<une clé secrète privée>
-DJANGO_ALLOWED_HOSTS=<domaine de l'API>
-CORS_ALLOWED_ORIGINS=<adresse du frontend>
-DATABASE_URL=<adresse de la base PostgreSQL>
-```
-
-La clé secrète ne doit pas être ajoutée au dépôt. En production, Django refuse de démarrer si `DEBUG` est désactivé sans `DJANGO_SECRET_KEY`. Sans réglage de base de données, le projet continue d'utiliser SQLite en local. Pour SQL Server ou Azure SQL, définis `DATABASE_ENGINE=mssql`, puis `SQL_DATABASE`, `SQL_USER`, `SQL_PASSWORD` et `SQL_HOST` (le port `1433` est utilisé par défaut). `DATABASE_URL` reste l'option PostgreSQL.
-
-Pour Render avec PostgreSQL, le backend se configure avec le dossier racine `backend`, la commande de build `pip install -r requirements.txt && python manage.py collectstatic --no-input && python manage.py migrate` et la commande de démarrage `gunicorn ecommerce_api.wsgi:application --bind 0.0.0.0:$PORT`. Publie `frontend` comme site statique. Après création des deux services, renseigne leurs domaines dans `DJANGO_ALLOWED_HOSTS`, `CORS_ALLOWED_ORIGINS` et `frontend/js/config.js`. Pour SQL Server, il faut utiliser un serveur SQL accessible depuis l'hébergeur, par exemple Azure SQL ; Render ne fournit que PostgreSQL comme base relationnelle gérée.
-
-### Déploiement Azure avec SQL Server
-
-Le dépôt contient aussi un `requirements.txt` à sa racine qui pointe vers les dépendances du backend. Pour Azure App Service, choisis Linux et Python 3.12 ou plus récent. Dans **Deployment Center**, connecte le dépôt GitHub et déploie la branche `main`. Dans **Configuration > General settings**, utilise cette commande de démarrage :
-
-```text
-cd backend && gunicorn ecommerce_api.wsgi:application --bind=0.0.0.0:8000
-```
-
-Dans **Environment variables**, configure `DJANGO_DEBUG=False`, `DJANGO_SECRET_KEY` (une valeur générée et privée), `DJANGO_ALLOWED_HOSTS=<nom-app>.azurewebsites.net`, `CORS_ALLOWED_ORIGINS=<URL-du-site-statique>`, `DATABASE_ENGINE=mssql`, `SQL_DATABASE`, `SQL_USER`, `SQL_PASSWORD`, `SQL_HOST` et `SQL_PORT=1433`. Dans Azure SQL, récupère `SQL_HOST` sous la forme `<nom-serveur>.database.windows.net`.
-
-Crée ensuite un site **Azure Static Web Apps** lié au même dépôt et à la branche `main`, avec `frontend` comme emplacement de l'application, sans emplacement d'API ni commande de build. Copie son URL dans `CORS_ALLOWED_ORIGINS`, puis remplace l'adresse locale dans `frontend/js/config.js` par `https://<nom-app>.azurewebsites.net/api/` et pousse ce changement.
-
-Après le premier déploiement, ouvre la console SSH de l'App Service et exécute `cd /home/site/wwwroot/backend && python manage.py migrate`. Tu peux ensuite créer un administrateur avec `python manage.py createsuperuser`. Dans le pare-feu réseau du serveur Azure SQL, autorise les adresses sortantes affichées dans **Properties** de l'App Service. Évite d'autoriser toutes les ressources Azure pour une base qui contient des données réelles.
+> ⚠️ Le backend doit rester actif pendant l'utilisation du frontend, car les données sont récupérées depuis l'API Django.
 
 ---
 
-## 🔑 Accès administrateur et compte de test
+## 🔑 Accès à l'administration
 
-Aucun identifiant n'est fourni dans ce dépôt pour des raisons de sécurité. Pour créer ton propre compte administrateur après l'installation :
+Aucun identifiant administrateur n'est fourni dans le dépôt.
+
+Pour créer ton propre compte administrateur, place-toi dans le dossier `backend` et exécute :
 
 ```bash
 python manage.py createsuperuser
 ```
 
-Suis les instructions (email, nom, mot de passe), puis connecte-toi sur **http://127.0.0.1:8000/admin/**.
+Renseigne les informations demandées.
 
-Pour tester le site en tant que client, crée un compte directement depuis la page d'inscription (`register.html`).
+L'interface d'administration est accessible ici :
+
+[**http://127.0.0.1:8000/admin/**](http://127.0.0.1:8000/admin/)
+
+Pour tester l'application en tant que client, crée directement un compte depuis la page d'inscription.
 
 ---
 
-## 🔌 Endpoints API
+## 🔌 Documentation de l'API REST
 
-| Méthode | Endpoint | Description | Auth requise |
-|---|---|---|---|
-| GET | `/api/products/` | Liste des produits | Non |
-| GET | `/api/products/<id>/` | Détail d'un produit | Non |
-| POST | `/api/users/` | Inscription | Non |
-| POST | `/api/token/` | Connexion (obtenir un token JWT) | Non |
-| GET | `/api/orders/` | Historique des commandes de l'utilisateur | Oui |
-| GET | `/api/orders/<id>/` | Détail d'une commande | Oui |
-| POST | `/api/create_order/` | Créer une commande à partir du panier | Oui |
+Les principaux endpoints exposés par le backend sont les suivants :
 
-L'authentification se fait via un header `Authorization: Bearer <token>`.
+| Méthode | Endpoint              | Description                   | Authentification |
+| ------- | --------------------- | ----------------------------- | ---------------- |
+| GET     | `/api/products/`      | Liste des produits            | Non              |
+| GET     | `/api/products/<id>/` | Détail d'un produit           | Non              |
+| POST    | `/api/users/`         | Inscription                   | Non              |
+| POST    | `/api/token/`         | Connexion et obtention du JWT | Non              |
+| GET     | `/api/orders/`        | Historique des commandes      | Oui              |
+| GET     | `/api/orders/<id>/`   | Détail d'une commande         | Oui              |
+| POST    | `/api/create_order/`  | Création d'une commande       | Oui              |
+
+### Authentification
+
+Les endpoints protégés nécessitent un token JWT transmis dans l'en-tête HTTP :
+
+```http
+Authorization: Bearer <access_token>
+```
 
 ---
 
 ## 📸 Captures d'écran
 
-*(à ajouter : capture de la page d'accueil, du détail produit, et du panier)*
+Voici un aperçu des principales interfaces de l'application **Mon Shop**.
+
+### 🏠 Page d'accueil
+
+Présentation du catalogue de produits et de l'interface principale.
+
+![Page d'accueil](screenshots/ecran_accueil.png)
+
+### 🔐 Page de connexion
+
+Interface permettant aux utilisateurs de se connecter à leur compte.
+
+![Page de connexion](screenshots/ecran_connexion.png)
+
+### 🛍️ Détail d'un produit
+
+Présentation des informations détaillées d'un produit.
+
+![Détail d'un produit](screenshots/ecran_detail_produit.png)
+
+### 🛒 Panier
+
+Gestion des produits sélectionnés avant la validation de la commande.
+
+![Panier](screenshots/ecran_panier.png)
+
+### 📦 Commandes
+
+Consultation des commandes enregistrées.
+
+![Commandes](screenshots/ecran_commandes.png)
+---
+
+## 🔮 Améliorations envisageables
+
+Plusieurs évolutions pourront être apportées au projet :
+
+- Mise en place d'un système de renouvellement automatique des tokens JWT.
+- Ajout de la pagination du catalogue de produits.
+- Intégration d'un système d'avis et de notation.
+- Notifications par email lors de la création ou de la validation d'une commande.
+- Intégration d'une solution de paiement en ligne.
+- Ajout de tests automatisés pour le frontend et le backend.
+- Amélioration de la journalisation et de la gestion des erreurs.
+- Préparation du projet pour un futur déploiement en production.
 
 ---
 
-## 🔧 Améliorations possibles
+## 👨‍💻 Auteur
 
-- Ajout d'un système de refresh token pour éviter la reconnexion après expiration
-- Pagination des produits sur l'accueil
-- Système d'avis et de notation des produits
-- Notifications par email lors de la validation d'une commande
-- Déploiement en production (actuellement pensé pour un usage local/démo)
+**Jean-Baptiste Assogba**
+
+Étudiant en Licence 3 — Systèmes Informatiques et Logiciels (SIL).
+
+Développeur orienté Full Stack, avec un intérêt particulier pour le développement backend, la conception de bases de données et l'architecture des applications.
+
+Projet réalisé dans le cadre du stage **Full Stack Development de CodeAlpha**.
 
 ---
 
-## 👤 Auteur
-
-Projet réalisé par **Jean-Baptiste Assogba** dans le cadre du stage CodeAlpha (Full Stack Development).
+\<p align="center">   \<strong>Développé avec passion et curiosité pour le développement web. 🚀\</strong> \</p>
