@@ -1,17 +1,15 @@
 # 🛍️ Mon Shop — Full Stack E-commerce
 
-\<p align="center">
-&#x20; \<strong>Application e-commerce développée avec Django REST Framework et JavaScript.\</strong>
-\</p>
+Application e-commerce développée avec Django REST Framework et JavaScript.
 
-\<p align="center">
-&#x20; \<img src="[https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python\&logoColor=white)" alt="Python">
-&#x20; \<img src="[https://img.shields.io/badge/Django-6.0-092E20?logo=django&logoColor=white](https://img.shields.io/badge/Django-6.0-092E20?logo=django\&logoColor=white)" alt="Django">
-&#x20; \<img src="[https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?logo=javascript&logoColor=black](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?logo=javascript\&logoColor=black)" alt="JavaScript">
-&#x20; \<img src="[https://img.shields.io/badge/Bootstrap-5-7952B3?logo=bootstrap&logoColor=white](https://img.shields.io/badge/Bootstrap-5-7952B3?logo=bootstrap\&logoColor=white)" alt="Bootstrap">
-&#x20; \<img src="[https://img.shields.io/badge/SQLite-Database-003B57?logo=sqlite&logoColor=white](https://img.shields.io/badge/SQLite-Database-003B57?logo=sqlite\&logoColor=white)" alt="SQLite">
-&#x20; \<img src="[https://img.shields.io/badge/API-REST-orange](https://img.shields.io/badge/API-REST-orange)" alt="REST API">
-\</p>
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white)
+![Django](https://img.shields.io/badge/Django-6.0-092E20?logo=django&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?logo=javascript&logoColor=black)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?logo=bootstrap&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-Database-003B57?logo=sqlite&logoColor=white)
+![API](https://img.shields.io/badge/API-REST-orange)
+
+---
 
 ---
 
